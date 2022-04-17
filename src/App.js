@@ -57,12 +57,27 @@ class App extends React.Component {
     }
 
     render() {
-        return (
-	  <div>
-            Hello World!
+      return (
+          <div>
+          <div className='loginCore'>
+            {!this.state.userprofile && (
+              <div className='loginPage'>
+                <Login loginFunc={(email, password) => this.login(email, password)} error={() => this.state.error} />
+                <div className='loginSwitchContainer'>
+                  <p>{this.state.currentPage ? 'Got an account?' : "Haven't got an account?"}</p>
+                  <span onClick={() => this.setState({ currentPage: !this.state.currentPage })}>{this.state.currentPage ? 'Login' : 'Sign Up'}</span>
+                </div>
+              </div>
+            )}
+            {this.state.userprofile && (
+              <div className='loginPage'>
+                <Profile userprofile={this.state.userprofile} logout={() => this.logout()} />
+              </div>
+            )}
           </div>
-        )
-    }
+        </div>
+      )
+  }
 };
 
 export default App;
